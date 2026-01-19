@@ -1,0 +1,43 @@
+.app {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--p-3);
+}
+
+.terminal {
+  height: 100vh;
+  padding: var(--p-3);
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.terminal-input {
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: var(--p-3);
+  font-family: "JetBrains Mono", monospace;
+  padding: 0;
+}
+
+.terminal-input {
+  display: flex;
+  flex-direction: row;
+  gap: var(--p-3);
+}
+
+.terminal-output {
+  white-space: pre;
+}
+
+.output-block {
+  display: block;
+  white-space: pre;
+}
+
+.output-block span {
+  display: block;
+}
