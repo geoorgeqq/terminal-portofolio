@@ -8,7 +8,6 @@ export default function InputLine({ onEnter }: InputLineProps) {
   const [input, setInput] = useState("");
   const ref = useRef<HTMLInputElement>(null);
 
-  // autofocus la mount
   useEffect(() => {
     ref.current?.focus();
   }, []);
@@ -26,9 +25,9 @@ export default function InputLine({ onEnter }: InputLineProps) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            onEnter(input); // trimitem input-ul în App
-            setInput(""); // resetăm input-ul local (nu mai contează)
+          if (e.key === "Enter" && input != "") {
+            onEnter(input);
+            setInput("");
           }
         }}
         autoComplete="off"

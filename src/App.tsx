@@ -1,10 +1,21 @@
 import "./App.css";
 import { useState, type JSX } from "react";
 import InputLine from "./InputLine";
+import { useAsciiText, fireFontS } from "react-ascii-text";
 
 export default function App() {
+  const asciiTextRef = useAsciiText({
+    font: fireFontS,
+    isAnimated: false,
+    text: "geoorgeq",
+  });
   const [lines, setLines] = useState<JSX.Element[]>([
-    <InputLine key={0} onEnter={handleEnter} />,
+    <pre
+      style={{ marginTop: "-35px" }}
+      ref={asciiTextRef as React.RefObject<HTMLPreElement>}
+      key={0}
+    ></pre>,
+    <InputLine key={1} onEnter={handleEnter} />,
   ]);
 
   // handler pentru Enter
@@ -25,7 +36,14 @@ export default function App() {
         );
         break;
       case "clear":
-        setLines([<InputLine key={0} onEnter={handleEnter} />]);
+        setLines([
+          <pre
+            style={{ marginTop: "-35px" }}
+            ref={asciiTextRef as React.RefObject<HTMLPreElement>}
+            key={0}
+          ></pre>,
+          <InputLine onEnter={handleEnter} key={1} />,
+        ]);
         return;
       default:
         output = (
@@ -41,12 +59,12 @@ export default function App() {
       ...prev.map((line) => {
         if (line.type === InputLine) {
           return (
-            <div className="terminal-input">
+            <div className="terminal-input" key={line.key}>
               <span>
                 guest@geoorgeq.computer
                 <span style={{ color: "var(--success)" }}>:~$</span>
               </span>
-              <div key={line.key}>{value}</div>
+              <div>{value}</div>
             </div>
           );
         }
