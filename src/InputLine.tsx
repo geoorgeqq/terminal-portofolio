@@ -1,25 +1,51 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, type RefObject } from "react";
 
 type InputLineProps = {
   onEnter: (value: string) => void;
+  inputRef: RefObject<HTMLInputElement | null>;
 };
 
-export default function InputLine({ onEnter }: InputLineProps) {
-  const [input, setInput] = useState("");
-  const ref = useRef<HTMLInputElement>(null);
+export default function InputLine({ onEnter, inputRef }: InputLineProps) {
+  const commands = [
+    "ls",
+    "theme",
+    "theme list",
+    "theme dark",
+    "theme light",
+    "theme cyber",
+    "help",
+    "clear",
+  ];
 
-  useEffect(() => {
-    ref.current?.focus();
-  }, []);
+  const [input, setInput] = useState("");
+  const [preview, setPreview] = useState("");
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    const match = commands.find((cmd) => cmd.startsWith(input));
+    setPreview(match || "");
+    if (e.key === "Tab") {
+      if (preview) {
+        e.preventDefault();
+        if (match) {
+          setInput(match);
+        }
+      }
+    }
+  }
+
+  const match = input ? commands.find((cmd) => cmd.startsWith(input)) : "";
+  const previewText = match ? match.slice(input.length) : "";
 
   return (
     <div className="terminal-input">
       <span>
         guest@geoorgeq.computer
-        <span style={{ color: "var(--success)" }}>:~$</span>
+        <span style={{ color: "var(--success)", marginRight: "var(--p-3)" }}>
+          :~$
+        </span>
       </span>
       <input
-        ref={ref}
+        ref={inputRef}
         type="text"
         className="terminal-input"
         value={input}
@@ -28,11 +54,12 @@ export default function InputLine({ onEnter }: InputLineProps) {
           if (e.key === "Enter" && input != "") {
             onEnter(input);
             setInput("");
-          }
+          } else handleKeyDown(e);
         }}
-        autoComplete="off"
         spellCheck={false}
+        style={{ width: `${Math.max(input.length, 1)}ch` }}
       />
+      <span className="preview">{previewText}</span>
     </div>
   );
 }

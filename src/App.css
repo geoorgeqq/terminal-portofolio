@@ -26,7 +26,6 @@
 .terminal-input {
   display: flex;
   flex-direction: row;
-  gap: var(--p-3);
 }
 
 .terminal-output {
@@ -40,4 +39,8 @@
 
 .output-block span {
   display: block;
+}
+
+.preview {
+  color: rgba(128, 128, 128, 0.26);
 }

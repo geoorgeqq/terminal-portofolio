@@ -11,6 +11,20 @@
   --p-3: 15px;
 }
 
+.theme-cyber {
+  --bg: #050014;
+  --text: #eaff00;
+  --accent: #ff00ff;
+  --success: #00ffcc;
+}
+
+.theme-light {
+  --bg: #f5f5f5;
+  --text: #111;
+  --accent: #0066ff;
+  --success: #008000;
+}
+
 body {
   margin: 0;
 }
