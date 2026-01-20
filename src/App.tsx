@@ -39,6 +39,8 @@ export default function App() {
             <div>Use the following commands</div>
             <div>ls - to list all the personal projects</div>
             <div>about - learn something about me</div>
+            <div>theme - change the theme of the terminal</div>
+            <div>theme list - list of available themes</div>
           </div>,
         );
         break;
