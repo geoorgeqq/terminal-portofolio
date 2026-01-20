@@ -6,7 +6,7 @@ import { useAsciiText, fireFontS } from "react-ascii-text";
 export default function App() {
   const activeInputRef = useRef<HTMLInputElement | null>(null);
   const [theme, setTheme] = useState("dark");
-  const themes = ["dark", "light", "cyber"];
+  const themes = ["dark", "light", "cyber", "dracula"];
 
   const asciiTextRef = useAsciiText({
     font: fireFontS,
@@ -25,7 +25,7 @@ export default function App() {
   // handler pentru Enter
   function handleEnter(value: string) {
     const output: JSX.Element[] = [];
-    const parts = value.split(" ");
+    const parts = value.toLowerCase().split(" ");
     const command = parts[0];
     const arg = parts[1];
 
