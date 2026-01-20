@@ -44,3 +44,8 @@
 .preview {
   color: rgba(128, 128, 128, 0.26);
 }
+
+.about {
+  margin-top: var(--p-3);
+  margin-bottom: var(--p-3);
+}

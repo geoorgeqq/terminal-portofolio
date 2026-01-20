@@ -15,6 +15,7 @@ export default function InputLine({ onEnter, inputRef }: InputLineProps) {
     "theme cyber",
     "help",
     "clear",
+    "about",
   ];
 
   const [input, setInput] = useState("");
