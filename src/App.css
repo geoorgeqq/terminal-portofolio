@@ -49,3 +49,7 @@
   margin-top: var(--p-3);
   margin-bottom: var(--p-3);
 }
+
+.capitalized-text{
+  text-transform: capitalize;
+}

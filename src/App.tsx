@@ -7,6 +7,7 @@ export default function App() {
   const activeInputRef = useRef<HTMLInputElement | null>(null);
   const [theme, setTheme] = useState("dark");
   const themes = ["dark", "light", "cyber", "dracula"];
+  const inputs :string[] = [];
 
   const asciiTextRef = useAsciiText({
     font: fireFontS,
@@ -19,11 +20,14 @@ export default function App() {
       ref={asciiTextRef as React.RefObject<HTMLPreElement>}
       key={0}
     ></pre>,
-    <InputLine key={1} onEnter={handleEnter} inputRef={activeInputRef} />,
+    <InputLine key={1} onEnter={handleEnter} inputRef={activeInputRef}  inputs = {inputs}/>,
   ]);
 
+  
   // handler pentru Enter
   function handleEnter(value: string) {
+    // eslint-disable-next-line react-hooks/immutability
+    inputs.push(value);
     const output: JSX.Element[] = [];
     const parts = value.toLowerCase().split(" ");
     const command = parts[0];
@@ -70,7 +74,7 @@ export default function App() {
             ref={asciiTextRef as React.RefObject<HTMLPreElement>}
             key={0}
           ></pre>,
-          <InputLine onEnter={handleEnter} key={1} inputRef={activeInputRef} />,
+          <InputLine onEnter={handleEnter} key={1} inputRef={activeInputRef}  inputs = {inputs}/>,
         ]);
         return;
       case "theme": {
@@ -79,14 +83,13 @@ export default function App() {
           for (let i = 0; i <= themes.length; i++) {
             output.push(
               <div
-                className="output-block"
-                style={{ textTransform: "capitalize" }}
+                className="output-block capitalized-text"
               >
                 {themes[i]}
               </div>,
             );
           }
-        } else if (themes.indexOf(arg) === -1 && arg !== undefined) {
+        } else if (themes.indexOf(arg) === -1 && arg !== undefined && arg !== "") {
           output.push(
             <div>
               Theme not found. Use{" "}
@@ -97,9 +100,10 @@ export default function App() {
         } else if (arg) {
           setTheme(arg);
           output.push(
-            <div className="output-block">Theme switched to {arg}</div>,
+            <div>Theme switched to <span className="capitalized-text">{arg}</span></div>,
           );
         } else {
+          console.log(arg);
           let currentTheme = "";
           setTheme((prevTheme) => {
             const currentIndex = themes.indexOf(prevTheme);
@@ -108,8 +112,8 @@ export default function App() {
             return themes[nextIndex];
           });
           output.push(
-            <div className="output-block">
-              Theme switched to {currentTheme}
+            <div>
+              Theme switched to <span className="capitalized-text">{currentTheme}</span>
             </div>,
           );
         }
@@ -145,6 +149,7 @@ export default function App() {
         key={prev.length + 1}
         onEnter={handleEnter}
         inputRef={activeInputRef}
+        inputs={inputs}
       />,
     ]);
   }

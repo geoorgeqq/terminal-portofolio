@@ -3,14 +3,16 @@ import { useState, type RefObject } from "react";
 type InputLineProps = {
   onEnter: (value: string) => void;
   inputRef: RefObject<HTMLInputElement | null>;
+  inputs : string[];
 };
 
-export default function InputLine({ onEnter, inputRef }: InputLineProps) {
+export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps) {
   const commands = [
     "ls",
     "theme",
     "theme list",
     "theme dark",
+    "theme dracula",
     "theme light",
     "theme cyber",
     "help",
@@ -18,11 +20,17 @@ export default function InputLine({ onEnter, inputRef }: InputLineProps) {
     "about",
   ];
 
+
   const [input, setInput] = useState("");
   const [preview, setPreview] = useState("");
+  const [lastInput, setLastInput] = useState(inputs.length);
+
+  
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+
     const match = commands.find((cmd) => cmd.startsWith(input));
+
     setPreview(match || "");
     if (e.key === "Tab") {
       if (preview) {
@@ -32,7 +40,27 @@ export default function InputLine({ onEnter, inputRef }: InputLineProps) {
         }
       }
     }
+
+    let next : number = lastInput;
+
+    if(e.key === "ArrowUp"){
+      e.preventDefault()
+     setLastInput((prev :number) => {
+      next = prev > 0 ? prev - 1: inputs.length -1;
+      setInput(inputs[next] ?? "");
+      return next;
+     })
+    }
+
+    if(e.key === "ArrowDown"){
+      e.preventDefault()
+      setLastInput((prev : number) =>{
+        next = prev < inputs.length - 1 ? prev + 1 : 0;
+        setInput(inputs[next] ?? "");
+        return next;
+      })
   }
+}
 
   const match = input ? commands.find((cmd) => cmd.startsWith(input)) : "";
   const previewText = match ? match.slice(input.length) : "";
