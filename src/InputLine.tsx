@@ -22,23 +22,18 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
 
 
   const [input, setInput] = useState("");
-  const [preview, setPreview] = useState("");
   const [lastInput, setLastInput] = useState(inputs.length);
-
+  const match = input ? commands.find((cmd) => cmd.startsWith(input)) : "";
+  const previewText = match ? match.slice(input.length) : "";
   
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
 
-    const match = commands.find((cmd) => cmd.startsWith(input));
-
-    setPreview(match || "");
     if (e.key === "Tab") {
-      if (preview) {
-        e.preventDefault();
+      e.preventDefault();
         if (match) {
           setInput(match);
         }
-      }
     }
 
     let next : number = lastInput;
@@ -61,9 +56,6 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
       })
   }
 }
-
-  const match = input ? commands.find((cmd) => cmd.startsWith(input)) : "";
-  const previewText = match ? match.slice(input.length) : "";
 
   return (
     <div className="terminal-input">

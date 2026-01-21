@@ -24,7 +24,6 @@ export default function App() {
   ]);
 
   
-  // handler pentru Enter
   function handleEnter(value: string) {
     // eslint-disable-next-line react-hooks/immutability
     inputs.push(value);
@@ -35,11 +34,11 @@ export default function App() {
 
     switch (command) {
       case "ls":
-        output.push(<div>List of projects</div>);
+        output.push(<div key="ls-output">List of projects</div>);
         break;
       case "help":
         output.push(
-          <div className="output-block">
+          <div className="output-block" key="help-output">
             <div>Use the following commands</div>
             <div>ls - to list all the personal projects</div>
             <div>about - learn something about me</div>
@@ -50,7 +49,7 @@ export default function App() {
         break;
       case "about":
         output.push(
-          <div className="output-block about">
+          <div className="output-block about" key="about-output">
             <div>
               I am an eager and motivated beginner programmer with a strong
             </div>
@@ -79,11 +78,12 @@ export default function App() {
         return;
       case "theme": {
         if (arg === "list") {
-          output.push(<div className="output-block">List of themes:</div>);
+          output.push(<div className="output-block" key="theme-list-header">List of themes:</div>);
           for (let i = 0; i <= themes.length; i++) {
             output.push(
               <div
                 className="output-block capitalized-text"
+                key={`theme-${i}`}
               >
                 {themes[i]}
               </div>,
@@ -91,7 +91,7 @@ export default function App() {
           }
         } else if (themes.indexOf(arg) === -1 && arg !== undefined && arg !== "") {
           output.push(
-            <div>
+            <div key="theme-not-found">
               Theme not found. Use{" "}
               <span style={{ color: "var(--accent)" }}>theme list </span>
               to see available themes.
@@ -100,10 +100,9 @@ export default function App() {
         } else if (arg) {
           setTheme(arg);
           output.push(
-            <div>Theme switched to <span className="capitalized-text">{arg}</span></div>,
+            <div key="theme-switched">Theme switched to <span className="capitalized-text">{arg}</span></div>,
           );
         } else {
-          console.log(arg);
           let currentTheme = "";
           setTheme((prevTheme) => {
             const currentIndex = themes.indexOf(prevTheme);
@@ -112,7 +111,7 @@ export default function App() {
             return themes[nextIndex];
           });
           output.push(
-            <div>
+            <div key="theme-switched-auto">
               Theme switched to <span className="capitalized-text">{currentTheme}</span>
             </div>,
           );
@@ -121,7 +120,7 @@ export default function App() {
       }
       default:
         output.push(
-          <div>
+          <div key="command-not-found">
             Command not found. Type{" "}
             <span style={{ color: "var(--accent)" }}>help</span> to find all
             available commands.
