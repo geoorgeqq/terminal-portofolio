@@ -38,7 +38,7 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
       setInput("");
     }
 
-    if (e.key === "Tab") {
+    if (e.key === "Tab" || e.key === "ArrowRight") {
       e.preventDefault();
         if (match) {
           setInput(match);

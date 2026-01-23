@@ -59,11 +59,14 @@
 .output-block {
   display: block;
   white-space: pre;
-  display: flex;
 }
 
 .output-block span {
   display: block;
+}
+
+.output-flex {
+  display: flex;
 }
 
 .preview {
