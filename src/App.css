@@ -59,6 +59,7 @@
 .output-block {
   display: block;
   white-space: pre;
+  display: flex;
 }
 
 .output-block span {
@@ -79,3 +80,24 @@
 }
 
 
+.accent {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  width: 60px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+img {
+  width: 20px;
+  height: 20px;
+}
+
+.single-image{
+  margin-left: 0.4em;
+}

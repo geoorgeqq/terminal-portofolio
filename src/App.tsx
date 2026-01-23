@@ -35,7 +35,14 @@ export default function App() {
 
     switch (command) {
       case "ls":
-        output.push(<div key="ls-output">List of projects</div>);
+        output.push(<div key="ls-output">
+          <span className="output-block">List of projects:</span>
+           <span className="output-block">Social Media App - <a target="_blank" className="accent" href="https://github.com/geoorgeqq/Social-Media-App">https://github.com/geoorgeqq/Social-Media-App</a> <div className="icons"><img src="./angular-icon.svg" alt="angular" /><img src="./spring-icon.svg" alt="java" /></div></span>
+            <span className="output-block">Terminal Portofolio - <a target="_blank" className="accent" href="https://github.com/geoorgeqq/terminal-portofolio">https://github.com/geoorgeqq/terminal-portofolio</a><img src="./react-icon.svg" alt="react" className="single-image"/></span>
+             <span className="output-block">Student Management App - <a target="_blank" className="accent" href="https://github.com/geoorgeqq/Student-Management">https://github.com/geoorgeqq/Student-Management</a><div className="icons"><img src="./react-icon.svg" alt="react" /> <img src="./spring-icon.svg" alt="java" /></div></span>
+             <span className="output-block">Colaborative Code Editor - <a target="_blank" className="accent" href="https://github.com/geoorgeqq/Collaborative-Code-Editor">https://github.com/geoorgeqq/Collaborative-Code-Editor</a><img src="./rust-icon.svg" alt="rust" className="single-image" style={{color: "white"}}/></span>
+          
+        </div>);
         break;
       case "help":
         output.push(
@@ -91,7 +98,7 @@ export default function App() {
           output.push(
             <div key="theme-not-found">
               Theme not found. Use{" "}
-              <span style={{ color: "var(--accent)" }}>theme list </span>
+              <span className="accent">theme list </span>
               to see available themes.
             </div>,
           );
@@ -120,7 +127,7 @@ export default function App() {
         output.push(
           <div key="command-not-found">
             Command not found. Type{" "}
-            <span style={{ color: "var(--accent)" }}>help</span> to find all
+            <span className="accent">help</span> to find all
             available commands.
           </div>,
         );
