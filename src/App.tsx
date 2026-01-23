@@ -8,6 +8,7 @@ export default function App() {
   const [theme, setTheme] = useState("dark");
   const themes = ["dark", "light", "cyber", "dracula"];
   const inputs :string[] = [];
+  const keyRef = useRef(0);
 
   const asciiTextRef = useAsciiText({
     font: fireFontS,
@@ -18,9 +19,9 @@ export default function App() {
     <pre
       style={{ marginTop: "-35px" }}
       ref={asciiTextRef as React.RefObject<HTMLPreElement>}
-      key={0}
+      key="ascii-header"
     ></pre>,
-    <InputLine key={1} onEnter={handleEnter} inputRef={activeInputRef}  inputs = {inputs}/>,
+    <InputLine key={`input-line-${keyRef.current}`} onEnter={handleEnter} inputRef={activeInputRef}  inputs = {inputs}/>,
   ]);
 
   
@@ -66,20 +67,17 @@ export default function App() {
           </div>,
         );
         break;
-      case "clear":
+      case "clear": {
+        const newKey = ++keyRef.current;
         setLines([
-          <pre
-            style={{ marginTop: "-35px" }}
-            ref={asciiTextRef as React.RefObject<HTMLPreElement>}
-            key={0}
-          ></pre>,
-          <InputLine onEnter={handleEnter} key={1} inputRef={activeInputRef}  inputs = {inputs}/>,
+          <InputLine onEnter={handleEnter} key={`input-line-${newKey}`} inputRef={activeInputRef} inputs={inputs} />,
         ]);
         return;
+      }
       case "theme": {
         if (arg === "list") {
           output.push(<div className="output-block" key="theme-list-header">List of themes:</div>);
-          for (let i = 0; i <= themes.length; i++) {
+          for (let i = 0; i < themes.length; i++) {
             output.push(
               <div
                 className="output-block capitalized-text"
@@ -127,12 +125,12 @@ export default function App() {
           </div>,
         );
     }
-
+    const newCounter = keyRef.current += 2;
     setLines((prev) => [
       ...prev.map((line) => {
         if (line.type === InputLine) {
           return (
-            <div className="terminal-input" key={line.key}>
+            <div className="input-line" key={line.key}>
               <span>
                 guest@geoorgeq.computer
                 <span style={{ color: "var(--success)" }}>:~$</span>
@@ -143,9 +141,9 @@ export default function App() {
         }
         return line;
       }),
-      <div key={prev.length}>{output}</div>,
+      <div key={`output-${newCounter}`}>{output}</div>,
       <InputLine
-        key={prev.length + 1}
+        key={`input-line-${newCounter + 1}`}
         onEnter={handleEnter}
         inputRef={activeInputRef}
         inputs={inputs}

@@ -29,6 +29,15 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
 
+    if(e.ctrlKey && e.key === "a"){
+      e.preventDefault();
+      return;
+    }
+
+    if(e.ctrlKey && e.key ==="u"){
+      setInput("");
+    }
+
     if (e.key === "Tab") {
       e.preventDefault();
         if (match) {
@@ -58,7 +67,7 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
 }
 
   return (
-    <div className="terminal-input">
+    <div className="input-line">
       <span>
         guest@geoorgeq.computer
         <span style={{ color: "var(--success)", marginRight: "var(--p-3)" }}>
@@ -68,8 +77,8 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
       <input
         ref={inputRef}
         type="text"
-        className="terminal-input"
         value={input}
+        className="terminal-input"
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter" && input != "") {
@@ -80,7 +89,10 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
         spellCheck={false}
         style={{ width: `${Math.max(input.length, 1)}ch` }}
       />
+      <span className="typed" style={{ width: `${input.length}ch`}}>{input}</span>
       <span className="preview">{previewText}</span>
+      <span className="cursor" aria-hidden="true"></span>
+      
     </div>
   );
 }

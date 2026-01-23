@@ -13,6 +13,8 @@
 }
 
 .terminal-input {
+  position: absolute;
+  opacity: 0;
   color: var(--text);
   background: transparent;
   border: 0;
@@ -23,9 +25,31 @@
   padding: 0;
 }
 
-.terminal-input {
+.cursor {
+  display: inline-block;
+  width: 0.6ch;            
+  height: 1em;             
+  background: var(--text); 
+  margin-left: 0.15ch;
+  vertical-align: text-bottom;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; opacity: 1; }
+}
+
+
+.input-line {
   display: flex;
   flex-direction: row;
+  user-select: none;
 }
 
 .terminal-output {
@@ -53,3 +77,5 @@
 .capitalized-text{
   text-transform: capitalize;
 }
+
+
