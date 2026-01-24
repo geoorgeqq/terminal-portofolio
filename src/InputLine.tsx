@@ -23,7 +23,7 @@ export default function InputLine({ onEnter, inputRef, inputs }: InputLineProps)
 
   const [input, setInput] = useState("");
   const [lastInput, setLastInput] = useState(inputs.length);
-  const match = input ? commands.find((cmd) => cmd.startsWith(input)) : "";
+  const match = input ? commands.find((cmd) => cmd.startsWith(input.toLowerCase())) : "";
   const previewText = match ? match.slice(input.length) : "";
   
 
